@@ -15,14 +15,14 @@ Nevertheless, the performance is quite good if you think that the price for such
 # News
 Apr 11, 2010: The early version of OpenOCD 0.4.0 driver for eStick was commited, and work properly using the the same firmware.
 
-Mar 08, 2010: this project was also ported to USB AVR Lab (http://code.google.com/p/usbvlab-jtag'>usbvlab-jtag).
+Mar 08, 2010: this project was also ported to USB AVR Lab (https://github.com/cahya-wirawan/usbvlab-jtag'>usbvlab-jtag).
 
-Feb 07, 2010: this project was ported back to USBProg (http://code.google.com/p/usbprog-jtag'>usbprog-jtag).
+Feb 07, 2010: this project was ported back to USBProg (https://github.com/cahya-wirawan/usbprog-jtag'>usbprog-jtag).
 
 Jan 17, 2010: opendous-jtag has synchronized it's source code with this project, so it's transfer rate is now similar with this project.
 
 # eStick
-http://estick-jtag.googlecode.com/svn/wiki/images/eStick-01.png
+![estick](https://github.com/cahya-wirawan/estick-jtag/blob/master/images/eStick-01.png "estick")
 
 eStick is a small USB device using Atmel Microcontroller AT90USB162. It was developed by The Department of Embedded Systems at the University of Applied Sciences Technikum Wien, and intended to give students a simple but interesting way to get in contact with embedded system.
 
@@ -33,7 +33,7 @@ PORTB is configured for JTAG communications:
 
 And following is the pin configuration of eStick:
 
-http://estick-jtag.googlecode.com/svn/wiki/images/eStick-pin.png'> http://estick-jtag.googlecode.com/svn/wiki/images/eStick-pin.png' width='500' />
+https://github.com/cahya-wirawan/estick-jtag/images/eStick-pin.png'> http://estick-jtag.googlecode.com/svn/wiki/images/eStick-pin.png' width='500' />
 
 # How to compile
 The OpenOCD's source code can be downloaded from the estick-jtag's repository, it was patched already with estick code. Following is the step to get/compile openocd and make estick-jtag's firmware version 0.2: svn export http://estick-jtag.googlecode.com/svn/tags/0.2.0/openocd/openocd-r1454.estick openocd-r1454.estick cd openocd-r1454.estick ./bootstrap ./configure --enable-estick make
