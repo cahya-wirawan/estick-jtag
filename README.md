@@ -2,24 +2,41 @@
 USB-JTAG adapter using eStick for debugging and in-system programming of ARM microcontroller
 
 ## Introduction
-Estick-jtag is a USB-JTAG adapter to program ARM-based microcontrollers using OpenOCD. It allows real time debugging, in-system programming and boundary-scan testing for embedded target devices. It uses eStick as the USB device. The firmware is based on the opendous-jtag with some optimizations, which is 3 times faster than the original version of opendous-jtag.
+Estick-jtag is a USB-JTAG adapter to program ARM-based microcontrollers using OpenOCD. It allows real time debugging, 
+in-system programming and boundary-scan testing for embedded target devices. It uses eStick as the USB device. 
+The firmware is based on the opendous-jtag with some optimizations, which is 3 times faster than the original version 
+of opendous-jtag.
 
-The original idea of this project was to port OpenOCD-firmware of USBProg to eStick. But after some code comparison, it turned out that opendous-jtag has a better code that lead also to a faster flash/ram programming time. And since opendous-jtag uses the microcontroller AT90USB162, which is also used by eStick, the porting of the firmware from opendous-jtag to eStick was without any problem.
+The original idea of this project was to port OpenOCD-firmware of USBProg to eStick. But after some code comparison, 
+it turned out that opendous-jtag has a better code that lead also to a faster flash/ram programming time. And since 
+opendous-jtag uses the microcontroller AT90USB162, which is also used by eStick, the porting of the firmware from 
+opendous-jtag to eStick was without any problem.
 
-Currently estick-jtag (firmware ver. 0.2) is much faster than USBProg (12 times faster for ram programming), but it is still slower comparing to the commercial device such as Segger J-Link (using ARM microcontroller). The problem was here not really the usb frame rate, since estick-jtag was also designed to send as much as possible data in a usb frame.
+Currently estick-jtag (firmware ver. 0.2) is much faster than USBProg (12 times faster for ram programming), but it 
+is still slower comparing to the commercial device such as Segger J-Link (using ARM microcontroller). The problem was 
+here not really the usb frame rate, since estick-jtag was also designed to send as much as possible data in a usb frame.
 
-The bottleneck is the performance of the microcontroller to read the data from the incoming buffer, send it to the target, read the result from target and write it in outgoing buffer. The whole processing time of 350 bytes (current max buffer size) of data between device and the target is about 5 ms. It is still much slower than the time used to send 350 byte of data from host to the device (the frame size of Full Speed USB is 1 ms). Of course, the transfer rate could be little bit faster if it uses bigger buffer, but AT90USB162 has only 512 bytes of ram, and it should be shared among stack, variables, incoming and outgoing buffer.
+The bottleneck is the performance of the microcontroller to read the data from the incoming buffer, send it to the 
+target, read the result from target and write it in outgoing buffer. The whole processing time of 350 bytes (current 
+max buffer size) of data between device and the target is about 5 ms. It is still much slower than the time used to 
+send 350 byte of data from host to the device (the frame size of Full Speed USB is 1 ms). Of course, the transfer rate 
+could be little bit faster if it uses bigger buffer, but AT90USB162 has only 512 bytes of ram, and it should be shared 
+among stack, variables, incoming and outgoing buffer.
 
-Nevertheless, the performance is quite good if you think that the price for such a small device is less than $10 (source: http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous1/Micropendous1_BillOfMaterials.txt'>micropendous). In fact, as a student at the University of Applied Sciences Technikum Wien, you can get eStick for only 5 Euro :)
+Nevertheless, the performance is quite good if you think that the price for such a small device is less than $10 
+(source: [micropendous]( http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous1/Micropendous1_BillOfMaterials.txt)). 
+In fact, as a student at the University of Applied Sciences Technikum Wien, you can get eStick for only 5 Euro :)
 
 # News
-Apr 11, 2010: The early version of OpenOCD 0.4.0 driver for eStick was commited, and work properly using the the same firmware.
+Apr 11, 2010: The early version of OpenOCD 0.4.0 driver for eStick was commited, and work properly using the the same 
+firmware.
 
-Mar 08, 2010: this project was also ported to USB AVR Lab (https://github.com/cahya-wirawan/usbvlab-jtag'>usbvlab-jtag).
+Mar 08, 2010: this project was also ported to USB AVR Lab [usbvlab-jtag](https://github.com/cahya-wirawan/usbvlab-jtag).
 
-Feb 07, 2010: this project was ported back to USBProg (https://github.com/cahya-wirawan/usbprog-jtag'>usbprog-jtag).
+Feb 07, 2010: this project was ported back to USBProg [usbprog-jtag](https://github.com/cahya-wirawan/usbprog-jtag).
 
-Jan 17, 2010: opendous-jtag has synchronized it's source code with this project, so it's transfer rate is now similar with this project.
+Jan 17, 2010: opendous-jtag has synchronized it's source code with this project, so it's transfer rate is now similar 
+with this project.
 
 # eStick
 ![estick](https://github.com/cahya-wirawan/estick-jtag/blob/master/images/eStick-01.png "estick")
@@ -29,11 +46,18 @@ eStick is a small USB device using Atmel Microcontroller AT90USB162. It was deve
 # eStick's pin
 PORTB is configured for JTAG communications:
 
-| Pin | Function | |:--------|:-------------| | 0 | TDI | | 1 | TMS | | 2 | TRST | | 3 | SRST | | 4 | TCK | | 5 | TDO |
+ | Pin | Function | 
+ |:--------|:-------------| 
+ | 0 | TDI  | 
+ | 1 | TMS  | 
+ | 2 | TRST | 
+ | 3 | SRST | 
+ | 4 | TCK  | 
+ | 5 | TDO  |
 
 And following is the pin configuration of eStick:
 
-https://github.com/cahya-wirawan/estick-jtag/images/eStick-pin.png'> http://estick-jtag.googlecode.com/svn/wiki/images/eStick-pin.png' width='500' />
+[eStick-pin](https://github.com/cahya-wirawan/estick-jtag/images/eStick-pin.png "width=500")
 
 # How to compile
 The OpenOCD's source code can be downloaded from the estick-jtag's repository, it was patched already with estick code. Following is the step to get/compile openocd and make estick-jtag's firmware version 0.2: svn export http://estick-jtag.googlecode.com/svn/tags/0.2.0/openocd/openocd-r1454.estick openocd-r1454.estick cd openocd-r1454.estick ./bootstrap ./configure --enable-estick make
