@@ -58,7 +58,7 @@ PORTB is configured for JTAG communications:
 And following is the pin configuration of eStick:
 
 <img src="https://github.com/cahya-wirawan/estick-jtag/blob/master/images/eStick-pin.png" alt="eStick-pin" 
-style="width: 500px;"/>
+style="width: 300px;"/>
 
 # How to compile
 The OpenOCD's source code can be downloaded from the estick-jtag's repository, it was patched already with estick code. Following is the step to get/compile openocd and make estick-jtag's firmware version 0.2: svn export http://estick-jtag.googlecode.com/svn/tags/0.2.0/openocd/openocd-r1454.estick openocd-r1454.estick cd openocd-r1454.estick ./bootstrap ./configure --enable-estick make
